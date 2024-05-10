@@ -1,0 +1,119 @@
+.warna1 {
+    background-color: #876445;
+}
+
+.warna2 {
+    background-color: #CA965C;
+}
+
+.btn.warna2:hover{
+    background-color: #876445;
+}
+
+.warna3 {
+    background-color: #EEC373;
+}
+
+.btn.warna3:hover{
+    background-color: #CA965C;
+}
+
+.warna4 {
+    background-color: #F4DFBA;
+}
+
+.btn.warna4:hover{
+    background-color: #EEC373;
+}
+
+body {
+    background-color: #f0f0f0; /* Ganti dengan warna yang Anda inginkan */
+}
+
+
+
+.banner {
+    height: 95vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/banner.jpg');
+    background-size: cover;
+    background-position: 800px 0px;
+}
+
+.highlighted-kategori {
+    height: 250px;
+}
+
+.kategori-baju-pria {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/baju-pria.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.kategori-baju-wanita {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/baju-wanita.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.kategori-topi {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/topi.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.no-decoration {
+    text-decoration: none;
+    color: white;
+}
+
+.no-decoration:hover {
+    color: #F4DFBA;
+}
+
+.text-harga {
+    font-size: 22px;
+    color: #CA965C;
+}
+
+.image-box {
+    height: 250px;
+}
+
+.image-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.content-subscribe {
+    background-color: #CA965C;
+}
+
+.content-subscribe a {
+    color: #fff;
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+}
+
+.content-subscribe a:hover {
+    color: #CA965C;
+    background-color: #fff;
+    
+}
+
+.banner2 {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/banner.jpg');
+    background-position: center;
+    background-size: 150%;
+}
+
+.produk-terkait-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
