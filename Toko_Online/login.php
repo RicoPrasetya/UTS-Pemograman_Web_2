@@ -1,7 +1,9 @@
 <?php
 session_start();
-require "../koneksi.php";
+require "koneksi.php";
 ?>
+
+<?php include 'css_version.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,8 +11,10 @@ require "../koneksi.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Login</title>
-    <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
+    <title>Toko Online | Login</title>
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <style>
@@ -40,7 +44,11 @@ require "../koneksi.php";
                     <input type="password" class="form-control" name="password" id="password">
                 </div>
                 <div>
-                    <button class="btn btn-success form-control mt-3" type="submit" name="loginbtn">Login</button>
+                    <button class="btn warna3 text-white form-control mt-3" type="submit" name="loginbtn">Login</button>
+                </div>
+                <div class="mt-3 text-center">
+                    Belum punya akun?
+                    <a class="register" href="register.php">Buat Akun</a>
                 </div>
             </form>
         </div>
@@ -57,19 +65,12 @@ require "../koneksi.php";
 
                 if ($countdata > 0) {
                     if (password_verify($password, $data['password'])) {
-                        if ($data['role'] == 'admin') {
-                            $_SESSION['username'] = $data['username'];
-                            $_SESSION['login'] = true;
-                            header('location: ../adminpanel');
-                        } else {
-            ?>
-                            <div class="alert alert-danger" role="alert">
-                                Anda tidak memiliki akses ke halaman ini
-                            </div>
-                        <?php
-                        }
+                        $_SESSION['user_id'] = $data['id'];
+                        $_SESSION['username'] = $data['username'];
+                        $_SESSION['login'] = true;
+                        header('location: index.php');
                     } else {
-                        ?>
+            ?>
                         <div class="alert alert-warning" role="alert">
                             Password salah
                         </div>
@@ -87,6 +88,10 @@ require "../koneksi.php";
         </div>
     </div>
 
+    <?php require "footer.php"; ?>
+
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="fontawesome/js/all.min.js"></script>
 </body>
 
 </html>

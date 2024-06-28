@@ -26,7 +26,7 @@
 
 <div class="container-fluid py-3 warna1 text-light">
     <div class="container d-flex justify-content-between">
-        <label>&copy;2024 Toko Online Fashion</label>
+        <label>&copy;2024 Toko Online</label>
         <label>Created by Rico Prasetya</label>
     </div>
 </div>

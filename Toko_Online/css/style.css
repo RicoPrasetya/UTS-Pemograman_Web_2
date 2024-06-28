@@ -2,11 +2,15 @@
     background-color: #876445;
 }
 
+.btn.warna1:hover{
+    background-color: #58402a;
+}
+
 .warna2 {
     background-color: #CA965C;
 }
 
-.btn.warna2:hover{
+.btn.warna2:hover {
     background-color: #876445;
 }
 
@@ -14,7 +18,7 @@
     background-color: #EEC373;
 }
 
-.btn.warna3:hover{
+.btn.warna3:hover {
     background-color: #CA965C;
 }
 
@@ -22,19 +26,20 @@
     background-color: #F4DFBA;
 }
 
-.btn.warna4:hover{
+.btn.warna4:hover {
     background-color: #EEC373;
 }
 
 body {
-    background-color: #f0f0f0; /* Ganti dengan warna yang Anda inginkan */
+    background-color: #f0f0f0;
+    /* Ganti dengan warna yang Anda inginkan */
 }
 
 
 
 .banner {
     height: 95vh;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/banner.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/banner.jpg');
     background-size: cover;
     background-position: 800px 0px;
 }
@@ -44,19 +49,19 @@ body {
 }
 
 .kategori-baju-pria {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/baju-pria.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/baju-pria.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .kategori-baju-wanita {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/baju-wanita.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/baju-wanita.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .kategori-topi {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/topi.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/topi.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -101,12 +106,12 @@ body {
 .content-subscribe a:hover {
     color: #CA965C;
     background-color: #fff;
-    
+
 }
 
 .banner2 {
     height: 60vh;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../image/banner.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/banner.jpg');
     background-position: center;
     background-size: 150%;
 }
@@ -116,4 +121,17 @@ body {
     width: 100%;
     object-fit: cover;
     object-position: center;
+}
+
+.keranjang-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.register {
+    color: blue;
+    text-decoration: none;
+    font-size: 20px;
 }

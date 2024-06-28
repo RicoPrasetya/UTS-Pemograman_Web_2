@@ -1,4 +1,5 @@
 <?php
+    require "session.php";
     require "koneksi.php";
     $queryProduk = mysqli_query($con, "SELECT id, nama, harga, foto, detail FROM produk ORDER BY RAND() LIMIT 6");
 ?>
@@ -19,7 +20,7 @@
 
     <div class="container-fluid banner d-flex align-items-center">
         <div class="container text-center text-white">
-            <h1>Toko Online Fashion</h1>
+            <h1>Toko Online</h1>
             <h3>Mau Cari Apa?</h3>
             <div class="col-md-8 offset-md-2">
                 <form method="get" action="produk.php">
@@ -54,16 +55,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- tentang kami -->
-    <div class="container-fluid warna3 py-5">
-        <div class="container text-center">
-            <h3>Tentang Kami</h3>
-            <p class="fs-5 mt-3">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae ad reprehenderit sint porro, autem aperiam esse placeat maxime molestias nam distinctio fuga illum deserunt nihil hic veritatis at consectetur, ratione eum repudiandae voluptatem veniam. At ad aperiam minus delectus quis, mollitia expedita alias quod vero, voluptatum unde laborum est eos, dolorem enim doloremque adipisci. Vero numquam perspiciatis eaque suscipit inventore earum necessitatibus consectetur atque, hic cum nemo amet, rem possimus sit commodi soluta, a ullam? Pariatur, autem dolore. Dignissimos, doloribus.
-            </p>
         </div>
     </div>
 
