@@ -88,11 +88,12 @@
                     <textarea name="detail" id="detail" cols="30" rows="10" placeholder="Input detail produk" class="form-control"></textarea>
                 </div>
                 <div>
-                    <label for="ketersediaan_stok">Ketersediaan Stok</label>
-                    <select name="ketersediaan_stok" id="ketersediaan_stok" class="form-control">
-                        <option value="tersedia">Tersedia</option>
-                        <option value="habis">Habis</option>
-                    </select>
+                    <label for="stok">Stok</label>
+                    <input type="number" name="stok" id="stok" placeholder="Input stok produk" class="form-control" autocomplete="off" required>
+                </div>
+                <div>
+                    <label for="modal">Modal</label>
+                    <input type="number" name="modal" id="modal" placeholder="Input modal produk" class="form-control" autocomplete="off" required>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
@@ -105,7 +106,8 @@
                     $kategori = htmlspecialchars($_POST['kategori']);
                     $harga = htmlspecialchars($_POST['harga']);
                     $detail = htmlspecialchars($_POST['detail']);
-                    $ketersediaan_stok = htmlspecialchars($_POST['ketersediaan_stok']);
+                    $stok = htmlspecialchars($_POST['stok']);
+                    $modal = htmlspecialchars($_POST['modal']);
 
                     $target_dir = "../image/";
                     $nama_file = basename($_FILES["foto"]["name"]);
@@ -115,38 +117,36 @@
                     $random_name = generateRandomString(20);
                     $new_name = $random_name . "." . $imageFileType;
 
-                    if($nama=='' || $kategori=='' || $harga==''){
+                    if($nama=='' || $kategori=='' || $harga=='' || $stok==''){
             ?>
                         <div class="alert alert-warning mt-3" role="alert">
-                            Nama, kategori dan harga wajib diisi
+                            Nama, kategori, harga, dan stok wajib diisi
                         </div>
             <?php
                     }
                     else{
-                        if($nama_file!=''){
-                            if($image_size > 5000000){
+                        if($image_size > 5000000){
+            ?>
+                            <div class="alert alert-warning mt-3" role="alert">
+                                File tidak boleh lebih dari 5 Mb
+                            </div>
+            <?php
+                        }
+                        else{
+                            if($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'gif'){
             ?>
                                 <div class="alert alert-warning mt-3" role="alert">
-                                    File tidak boleh lebih dari 5 Mb
+                                    File wajib bertipe jpg atau png atau gif
                                 </div>
             <?php
                             }
                             else{
-                                if($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'gif'){
-            ?>
-                                    <div class="alert alert-warning mt-3" role="alert">
-                                        File wajib bertipe jpg atau png atau gif
-                                    </div>
-            <?php
-                                }
-                                else{
-                                    move_uploaded_file($_FILES["foto"]["tmp_name"], $target_dir . $new_name);
-                                }
+                                move_uploaded_file($_FILES["foto"]["tmp_name"], $target_dir . $new_name);
                             }
                         }
 
                         // query insert to produk table
-                        $queryTambah = mysqli_query($con, "INSERT INTO produk (kategori_id, nama, harga, foto, detail, ketersediaan_stok) VALUES ('$kategori', '$nama', '$harga', '$new_name', '$detail', '$ketersediaan_stok')");
+                        $queryTambah = mysqli_query($con, "INSERT INTO produk (kategori_id, nama, harga, foto, detail, stok, modal) VALUES ('$kategori', '$nama', '$harga', '$new_name', '$detail', '$stok', '$modal')");
 
                         if($queryTambah){
             ?>
@@ -176,7 +176,8 @@
                             <th>Nama</th>
                             <th>Kategori</th>
                             <th>Harga</th>
-                            <th>Ketersediaan Stok</th>
+                            <th>Stok</th>
+                            <th>Modal</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -185,7 +186,7 @@
                             if($jumlahProduk==0){
                         ?>
                             <tr>
-                                <td colspan=6 class="text-center">Data produk tidak tersedia</td>
+                                <td colspan=7 class="text-center">Data produk tidak tersedia</td>
                             </tr>
                         <?php
                             }
@@ -198,7 +199,8 @@
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['nama_kategori']; ?></td>
                                     <td><?php echo $data['harga']; ?></td>
-                                    <td><?php echo $data['ketersediaan_stok']; ?></td>
+                                    <td><?php echo $data['stok']; ?></td>
+                                    <td><?php echo $data['modal']; ?></td>
                                     <td>
                                         <a href="produk-detail.php?p=<?php echo $data['id']; ?>" class="btn btn-info"><i class="fas fa-search"></i></a>
                                     </td>

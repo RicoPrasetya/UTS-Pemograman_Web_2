@@ -104,22 +104,12 @@
                     </textarea>
                 </div>
                 <div>
-                    <label for="ketersediaan_stok">Ketersediaan Stok</label>
-                    <select name="ketersediaan_stok" id="ketersediaan_stok" class="form-control">
-                        <option value="<?php echo $data['ketersediaan_stok'] ?>"><?php echo $data['ketersediaan_stok'] ?></option>
-                        <?php
-                            if($data['ketersediaan_stok']=='tersedia'){
-                        ?>
-                            <option value="habis">habis</option>
-                        <?php
-                            }
-                            else{
-                        ?>
-                            <option value="tersedia">tersedia</option>
-                        <?php
-                            }
-                        ?>
-                    </select>
+                    <label for="stok">Stok</label>
+                    <input type="number" name="stok" id="stok" value="<?php echo $data['stok'] ?>" class="form-control" autocomplete="off" required>
+                </div>
+                <div>
+                    <label for="modal">Modal</label>
+                    <input type="number" name="modal" id="modal" value="<?php echo $data['modal'] ?>" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary" name="simpan">Edit</button>
@@ -133,7 +123,8 @@
                     $kategori = htmlspecialchars($_POST['kategori']);
                     $harga = htmlspecialchars($_POST['harga']);
                     $detail = htmlspecialchars($_POST['detail']);
-                    $ketersediaan_stok = htmlspecialchars($_POST['ketersediaan_stok']);
+                    $stok = htmlspecialchars($_POST['stok']);
+                    $modal = htmlspecialchars($_POST['modal']);
 
                     $target_dir = "../image/";
                     $nama_file = basename($_FILES["foto"]["name"]);
@@ -143,15 +134,15 @@
                     $random_name = generateRandomString(20);
                     $new_name = $random_name . "." . $imageFileType;
 
-                    if($nama=='' || $kategori=='' || $harga==''){
+                    if($nama=='' || $kategori=='' || $harga=='' || $stok=='' || $modal==''){
             ?>
                         <div class="alert alert-warning mt-3" role="alert">
-                            Nama, kategori dan harga wajib diisi
+                            Nama, kategori, harga, stok, dan modal wajib diisi
                         </div>
             <?php
                     }
                     else{
-                        $queryUpdate = mysqli_query($con, "UPDATE produk SET kategori_id='$kategori', nama='$nama', harga='$harga', detail='$detail', ketersediaan_stok='$ketersediaan_stok' WHERE id=$id");
+                        $queryUpdate = mysqli_query($con, "UPDATE produk SET kategori_id='$kategori', nama='$nama', harga='$harga', detail='$detail', stok='$stok', modal='$modal' WHERE id=$id");
 
                         if($nama_file!=''){
                             if($image_size > 5000000){

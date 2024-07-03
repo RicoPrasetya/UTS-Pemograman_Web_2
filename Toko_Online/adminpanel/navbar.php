@@ -17,6 +17,12 @@
                     <a class="nav-link" href="produk.php">Produk</a>
                 </li>
                 <li class="nav-item me-4">
+                    <a class="nav-link" href="list_user.php">User</a>
+                </li>
+                <li class="nav-item me-4">
+                    <a class="nav-link" href="laporan.php">Laporan</a>
+                </li>
+                <li class="nav-item me-4">
                     <a class="nav-link" href="logout.php">Logout</a>
                 </li>
             </ul>
