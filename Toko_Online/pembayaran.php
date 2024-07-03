@@ -1,45 +1,48 @@
 <?php
-    require "session.php";
-    require "koneksi.php";
+require "session.php";
+require "koneksi.php";
 
-    // Ambil data keranjang untuk user yang sedang login
-    $user_id = $_SESSION['user_id'];
-    $queryKeranjang = mysqli_query($con, "SELECT keranjang.*, produk.nama, produk.harga FROM keranjang JOIN produk ON keranjang.produk_id = produk.id WHERE keranjang.user_id='$user_id'");
+// Ambil data keranjang untuk user yang sedang login
+$user_id = $_SESSION['user_id'];
+$queryKeranjang = mysqli_query($con, "SELECT keranjang.*, produk.nama, produk.harga FROM keranjang JOIN produk ON keranjang.produk_id = produk.id WHERE keranjang.user_id='$user_id'");
 
-    // Hitung total harga
-    $total_harga = 0;
-    while ($data = mysqli_fetch_array($queryKeranjang)) {
-        $total_harga += $data['harga'] * $data['jumlah'];
-    }
+// Hitung total harga
+$total_harga = 0;
+while ($data = mysqli_fetch_array($queryKeranjang)) {
+    $total_harga += $data['harga'] * $data['jumlah'];
+}
 
-    // Handling proses pembayaran
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['proses_pembayaran'])) {
-        $nama_pembeli = mysqli_real_escape_string($con, $_POST['nama_pembeli']);
-        $alamat = mysqli_real_escape_string($con, $_POST['alamat']);
-        $nomor_telepon = mysqli_real_escape_string($con, $_POST['nomor_telepon']);
+// Handling proses pembayaran
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['proses_pembayaran'])) {
+    $nama_pembeli = mysqli_real_escape_string($con, $_POST['nama_pembeli']);
+    $alamat = mysqli_real_escape_string($con, $_POST['alamat']);
+    $nomor_telepon = mysqli_real_escape_string($con, $_POST['nomor_telepon']);
+    
+    // Simpan data pembayaran
+    $queryPembayaran = mysqli_query($con, "INSERT INTO pembayaran (user_id, nama_pembeli, alamat, nomor_telepon, total_harga, tanggal_pembayaran) VALUES ('$user_id', '$nama_pembeli', '$alamat', '$nomor_telepon', '$total_harga', NOW())");
+
+    if ($queryPembayaran) {
+        $pembayaran_id = mysqli_insert_id($con);
         
-        // Simpan data pembayaran
-        $queryPembayaran = mysqli_query($con, "INSERT INTO pembayaran (user_id, nama_pembeli, alamat, nomor_telepon, total_harga, tanggal_pembayaran) VALUES ('$user_id', '$nama_pembeli', '$alamat', '$nomor_telepon', '$total_harga', NOW())");
-
-        if ($queryPembayaran) {
-            $pembayaran_id = mysqli_insert_id($con);
+        // Simpan detail pembayaran
+        mysqli_data_seek($queryKeranjang, 0);
+        while ($data = mysqli_fetch_array($queryKeranjang)) {
+            mysqli_query($con, "INSERT INTO pembayaran_detail (pembayaran_id, produk_id, nama_produk, jumlah, harga_satuan, total_harga) VALUES ('$pembayaran_id', '$data[produk_id]', '$data[nama]', '$data[jumlah]', '$data[harga]', '".$data['harga'] * $data['jumlah']."')");
             
-            // Simpan detail pembayaran
-            mysqli_data_seek($queryKeranjang, 0);
-            while ($data = mysqli_fetch_array($queryKeranjang)) {
-                mysqli_query($con, "INSERT INTO pembayaran_detail (pembayaran_id, produk_id, nama_produk, jumlah, harga_satuan, total_harga) VALUES ('$pembayaran_id', '$data[produk_id]', '$data[nama]', '$data[jumlah]', '$data[harga]', '".$data['harga'] * $data['jumlah']."')");
-            }
-            
-            // Hapus data keranjang user
-            mysqli_query($con, "DELETE FROM keranjang WHERE user_id='$user_id'");
-
-            header('Location: index.php'); // Ganti dengan halaman konfirmasi atau halaman lain sesuai kebutuhan
-            exit;
-        } else {
-            $notif_message = "Gagal memproses pembayaran.";
-            $notif_class = "alert alert-danger";
+            // Kurangi stok produk yang dibeli
+            mysqli_query($con, "UPDATE produk SET ketersediaan_stok = IF(stok - $data[jumlah] <= 0, 'habis', 'tersedia'), stok = stok - $data[jumlah] WHERE id = $data[produk_id]");
         }
+        
+        // Hapus data keranjang user
+        mysqli_query($con, "DELETE FROM keranjang WHERE user_id='$user_id'");
+
+        header('Location: index.php'); // Ganti dengan halaman konfirmasi atau halaman lain sesuai kebutuhan
+        exit;
+    } else {
+        $notif_message = "Gagal memproses pembayaran.";
+        $notif_class = "alert alert-danger";
     }
+}
 ?>
 
 <!DOCTYPE html>

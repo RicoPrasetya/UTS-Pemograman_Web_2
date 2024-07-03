@@ -1,7 +1,22 @@
 <?php
     require "session.php";
     require "koneksi.php";
+    
     $queryProduk = mysqli_query($con, "SELECT id, nama, harga, foto, detail FROM produk ORDER BY RAND() LIMIT 6");
+
+    // Pilih tiga kategori acak
+    $queryKategori = mysqli_query($con, "SELECT id, nama FROM kategori ORDER BY RAND() LIMIT 3");
+    $kategoriData = [];
+    while ($row = mysqli_fetch_array($queryKategori)) {
+        $kategoriData[] = $row;
+    }
+
+    // Ambil foto produk acak dari setiap kategori
+    foreach ($kategoriData as $index => $kategori) {
+        $queryFoto = mysqli_query($con, "SELECT foto FROM produk WHERE kategori_id = " . $kategori['id'] . " ORDER BY RAND() LIMIT 1");
+        $foto = mysqli_fetch_array($queryFoto);
+        $kategoriData[$index]['foto'] = $foto['foto'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +28,6 @@
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
     <?php require "navbar.php"; ?>
@@ -24,7 +38,7 @@
             <h3>Mau Cari Apa?</h3>
             <div class="col-md-8 offset-md-2">
                 <form method="get" action="produk.php">
-                    <div class="input-group input-group-lg  my-4">
+                    <div class="input-group input-group-lg my-4">
                         <input type="text" class="form-control" placeholder="Nama Barang" aria-label="Recipient's username" aria-describedby="basic-addon2" name="keyword">
                         <button type="submit" class="btn warna2 text-white">Telusuri</button>
                     </div>
@@ -39,21 +53,13 @@
             <h3>Rekomendasi Kategori</h3>
 
             <div class="row mt-5">
+                <?php foreach ($kategoriData as $kategori) { ?>
                 <div class="col-md-4 mb-3">
-                    <div class="highlighted-kategori kategori-baju-pria d-flex justify-content-center align-items-center">
-                        <h4 class="text-white"><a class="no-decoration" href="produk.php?kategori=Baju Pria">Baju Pria</a></h4>
+                    <div class="highlighted-kategori kategori-<?php echo strtolower(str_replace(' ', '-', $kategori['nama'])); ?> d-flex justify-content-center align-items-center" style="background-image: url('image/<?php echo $kategori['foto']; ?>');">
+                        <h4 class="text-white"><a class="no-decoration" href="produk.php?kategori=<?php echo $kategori['nama']; ?>"><?php echo $kategori['nama']; ?></a></h4>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="highlighted-kategori kategori-baju-wanita d-flex justify-content-center align-items-center">
-                        <h4 class="text-white"><a class="no-decoration" href="produk.php?kategori=Baju Wanita">Baju Wanita</a></h4>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="highlighted-kategori kategori-topi d-flex justify-content-center align-items-center">
-                        <h4 class="text-white"><a class="no-decoration" href="produk.php?kategori=Topi">Topi</a></h4>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -64,7 +70,7 @@
             <h3>Rekomendasi Produk</h3>
 
             <div class="row mt-5">
-                <?php while($data = mysqli_fetch_array($queryProduk)){ ?>
+                <?php while ($data = mysqli_fetch_array($queryProduk)) { ?>
                 <div class="col-sm-6 col-md-4 mb-3">
                     <div class="card h-100">
                         <div class="image-box">

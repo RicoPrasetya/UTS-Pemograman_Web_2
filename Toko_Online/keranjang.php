@@ -9,7 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['update'])) {
         $jumlah = $_POST['jumlah'];
-        $updateQuery = mysqli_query($con, "UPDATE keranjang SET jumlah='$jumlah' WHERE produk_id='$produk_id' AND user_id='$user_id'");
+        // Cek stok yang tersedia untuk produk ini
+        $queryStok = mysqli_query($con, "SELECT stok FROM produk WHERE id='$produk_id'");
+        $dataStok = mysqli_fetch_assoc($queryStok);
+        if ($jumlah <= $dataStok['stok']) {
+            $updateQuery = mysqli_query($con, "UPDATE keranjang SET jumlah='$jumlah' WHERE produk_id='$produk_id' AND user_id='$user_id'");
+        } else {
+            echo "<script>alert('Jumlah barang yang diinginkan melebihi stok yang tersedia');</script>";
+        }
     } elseif (isset($_POST['hapus'])) {
         $deleteQuery = mysqli_query($con, "DELETE FROM keranjang WHERE produk_id='$produk_id' AND user_id='$user_id'");
     }
@@ -17,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Ambil data dari tabel keranjang untuk user yang sedang login
 $user_id = $_SESSION['user_id'];
-$queryKeranjang = mysqli_query($con, "SELECT keranjang.*, produk.nama, produk.harga, produk.foto FROM keranjang JOIN produk ON keranjang.produk_id = produk.id WHERE keranjang.user_id='$user_id'");
+$queryKeranjang = mysqli_query($con, "SELECT keranjang.*, produk.nama, produk.harga, produk.foto, produk.stok FROM keranjang JOIN produk ON keranjang.produk_id = produk.id WHERE keranjang.user_id='$user_id'");
 
 $total_barang = 0;
 $total_harga = 0;
@@ -45,13 +52,14 @@ $total_harga = 0;
     </div>
 
     <div class="container py-5">
-        <table class="table table-bordered">
+        <table class="table table-bordered text-center">
             <thead>
                 <tr>
                     <th>Produk</th>
                     <th>Jumlah</th>
                     <th>Harga Satuan</th>
                     <th>Total</th>
+                    <th>Stok Tersedia</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -67,10 +75,11 @@ $total_harga = 0;
                         <td>
                             <form method="POST" action="">
                                 <input type="hidden" name="produk_id" value="<?php echo $data['produk_id']; ?>">
-                                <input type="number" name="jumlah" class="form-control" value="<?php echo $data['jumlah']; ?>" min="1">
+                                <input type="number" name="jumlah" class="form-control" value="<?php echo $data['jumlah']; ?>" min="1" max="<?php echo $data['stok']; ?>">
                         </td>
                         <td>Rp <?php echo number_format($data['harga'], 0, ',', '.'); ?></td>
                         <td>Rp <?php echo number_format($data['harga'] * $data['jumlah'], 0, ',', '.'); ?></td>
+                        <td><?php echo $data['stok']; ?></td>
                         <td>
                             <button type="submit" name="update" class="btn warna3 text-white">Update</button>
                             <button type="submit" name="hapus" class="btn warna3 text-white">Hapus</button>

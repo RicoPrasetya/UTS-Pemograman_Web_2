@@ -19,6 +19,9 @@
                 <li class="nav-item me-4">
                     <a href="keranjang.php" class="nav-link">Keranjang</a>
                 </li>
+                <li class="nav-item me-4">
+                    <a href="profil.php" class="nav-link">Profil</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <?php if (isset($_SESSION['login']) && $_SESSION['login'] === true) : ?>
