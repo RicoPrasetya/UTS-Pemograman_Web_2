@@ -13,9 +13,19 @@ if (isset($_POST['registerbtn'])) {
         $query = mysqli_query($con, "INSERT INTO users (username, password, role) VALUES ('$username', '$hashed_password', '$role')");
 
         if ($query) {
-            $_SESSION['username'] = $username;
-            $_SESSION['login'] = true;
-            header('location: index.php');
+            // Get the last inserted user ID
+            $user_id = mysqli_insert_id($con);
+
+            // Insert an empty profile for the new user
+            $query_profile = mysqli_query($con, "INSERT INTO profil (user_id) VALUES ('$user_id')");
+
+            if ($query_profile) {
+                $_SESSION['username'] = $username;
+                $_SESSION['login'] = true;
+                header('location: index.php');
+            } else {
+                $error = "Gagal membuat profil pengguna. Silakan coba lagi.";
+            }
         } else {
             $error = "Gagal mendaftarkan akun. Silakan coba lagi.";
         }
