@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2024 at 06:30 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 04 Jul 2024 pada 06.52
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
+-- Struktur dari tabel `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -33,7 +33,7 @@ CREATE TABLE `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `kategori`
+-- Dumping data untuk tabel `kategori`
 --
 
 INSERT INTO `kategori` (`id`, `nama`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `kategori` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keranjang`
+-- Struktur dari tabel `keranjang`
 --
 
 CREATE TABLE `keranjang` (
@@ -56,17 +56,18 @@ CREATE TABLE `keranjang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `keranjang`
+-- Dumping data untuk tabel `keranjang`
 --
 
 INSERT INTO `keranjang` (`id`, `produk_id`, `jumlah`, `user_id`) VALUES
 (21, 2, 1, 2),
-(22, 6, 1, 2);
+(22, 6, 1, 2),
+(24, 26, 1, 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayaran`
+-- Struktur dari tabel `pembayaran`
 --
 
 CREATE TABLE `pembayaran` (
@@ -80,7 +81,7 @@ CREATE TABLE `pembayaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pembayaran`
+-- Dumping data untuk tabel `pembayaran`
 --
 
 INSERT INTO `pembayaran` (`id`, `user_id`, `nama_pembeli`, `alamat`, `nomor_telepon`, `total_harga`, `tanggal_pembayaran`) VALUES
@@ -94,7 +95,7 @@ INSERT INTO `pembayaran` (`id`, `user_id`, `nama_pembeli`, `alamat`, `nomor_tele
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayaran_detail`
+-- Struktur dari tabel `pembayaran_detail`
 --
 
 CREATE TABLE `pembayaran_detail` (
@@ -108,7 +109,7 @@ CREATE TABLE `pembayaran_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pembayaran_detail`
+-- Dumping data untuk tabel `pembayaran_detail`
 --
 
 INSERT INTO `pembayaran_detail` (`id`, `pembayaran_id`, `produk_id`, `nama_produk`, `jumlah`, `harga_satuan`, `total_harga`) VALUES
@@ -130,7 +131,7 @@ INSERT INTO `pembayaran_detail` (`id`, `pembayaran_id`, `produk_id`, `nama_produ
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk`
+-- Struktur dari tabel `produk`
 --
 
 CREATE TABLE `produk` (
@@ -146,7 +147,7 @@ CREATE TABLE `produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `produk`
+-- Dumping data untuk tabel `produk`
 --
 
 INSERT INTO `produk` (`id`, `kategori_id`, `nama`, `harga`, `modal`, `stok`, `foto`, `detail`, `ketersediaan_stok`) VALUES
@@ -158,10 +159,26 @@ INSERT INTO `produk` (`id`, `kategori_id`, `nama`, `harga`, `modal`, `stok`, `fo
 (7, 4, 'Jam Tangan 2', 1500000, 0, 0, 'lOC2HOZXU3ePfF8hIB5E.jpg', 'Ini detail produk', 'habis'),
 (8, 5, 'Topi 1', 80000, 0, 4, 'M8BjYZqPYJ8bXLY2xaLt.jpg', 'Ini detail produk', 'tersedia'),
 (9, 5, 'Topi 2', 60000, 0, 0, '1ky018j0sAtYhKslwSre.jpg', 'Ini detail produk', 'habis'),
-(10, 1, 'baju 5', 100000, 0, 2, 'q5zg2Y2sc8pgfmPwXmnM.jpg', 'ini detail produk', 'tersedia');
+(10, 1, 'baju 5', 100000, 0, 2, 'q5zg2Y2sc8pgfmPwXmnM.jpg', 'ini detail produk', 'tersedia'),
+(11, 1, 'Baju 6', 150000, 0, 0, '0bbcdd3148a2240345684a406e375e8f.jpg', 'Ini Detail Produk', 'tersedia'),
+(12, 1, 'Baju 7', 170000, 0, 0, 'f60165ad3d4486ea3014c63d55e38fdb.jpg', 'Ini Detail Produk', 'tersedia'),
+(13, 1, 'Baju 8', 190000, 0, 0, '2a8e984a-9d8f-4655-8ada-9af1e247b40b.jpg', 'Ini Detail Produk', 'tersedia'),
+(14, 2, 'Baju 9', 160000, 0, 0, 'no-brand_atasan-wanita-terbaru-blouse-korean-style-baju-wanita-kerja-kuliah_full01.jpg', 'Ini detail produk', 'tersedia'),
+(15, 2, 'Baju 10', 680000, 0, 0, 'download (1).jpg', 'Ini detail produk', 'tersedia'),
+(16, 2, 'Baju 11', 340000, 0, 0, '9f02b8d8-44b2-4437-8b0b-67c008128adb.jpg', 'Ini detail produk', 'tersedia'),
+(17, 4, 'Jam Tangan 3', 1400000, 0, 0, 'f8f36851b25b7396e26eb120dcb3acf4.png', 'Ini detail produk', 'tersedia'),
+(18, 4, 'Jam Tangan 4', 1500000, 0, 0, 'jam-tangan-pria-skmei-analog-casual-leather-strap-original-9083cl-1500939181.jpg', 'Ini detail produk', 'tersedia'),
+(19, 4, 'Jam Tangan 5', 2700000, 0, 0, '4267c654-ccc3-4918-9a39-89e55668657b.jpg', 'Ini detail produk', 'habis'),
+(20, 4, 'Jam Tangan 6', 4200000, 0, 0, 'jam-tangan-pria-skmei-digital-casual-stainless-strap-original-dg1611-1605100744.jpg', 'Ini detail produk', 'habis'),
+(21, 5, 'Topi 3', 59000, 0, 0, 'ediko-topi-baseball-golf-logo-ediko-sport-fashion-black-306.jpg', 'Ini detail produk', 'tersedia'),
+(22, 5, 'Topi 4', 35000, 0, 0, 'f4ecea54-topi-trucker-cap-mix-warna-edited.png', 'Ini detail produk', 'tersedia'),
+(23, 5, 'Topi 5', 80000, 0, 0, 'pasted image 0.png', 'Ini detail produk', 'habis'),
+(24, 5, 'Topi 6', 60000, 0, 0, '60222456-1.jpg', 'Ini detail produk', 'habis'),
+(25, 2, 'Baju 12', 730000, 0, 0, 'af19693e597c1ede2f6ccaf9e69d6d92.jpg', 'Ini detail produk', 'tersedia'),
+(26, 1, 'Baju 13', 790000, 0, 0, 'baju-pria-distro-one-piece-794835.jpg', 'Ini Detail Produk', 'tersedia');
 
 --
--- Triggers `produk`
+-- Trigger `produk`
 --
 DELIMITER $$
 CREATE TRIGGER `update_ketersediaan_stok` BEFORE UPDATE ON `produk` FOR EACH ROW BEGIN
@@ -177,7 +194,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profil`
+-- Struktur dari tabel `profil`
 --
 
 CREATE TABLE `profil` (
@@ -191,17 +208,18 @@ CREATE TABLE `profil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `profil`
+-- Dumping data untuk tabel `profil`
 --
 
 INSERT INTO `profil` (`id`, `user_id`, `foto_profil`, `email`, `alamat`, `nomor_telepon`, `tanggal_lahir`) VALUES
 (1, 1, 'profil.jpg', NULL, NULL, NULL, NULL),
-(2, 2, 'profil_2_1719905836.jpg', 'ricoprasetya24@gmail.com', 'cikarang selatan', '089526152552', '2004-01-24');
+(2, 2, 'profil_2_1719905836.jpg', 'ricoprasetya24@gmail.com', 'cikarang selatan', '089526152552', '2004-01-24'),
+(4, 4, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -212,25 +230,26 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (1, 'admin', '$2a$12$iO955st./2FI4RVBKWL.qOGJbwsm3kvgHIOBP7PMV7SDVhR/sG2uC', 'admin'),
-(2, 'Rico', '$2y$10$8TOTMnkJ7Ho4ROzz9.LVpuaa4TuagEcmFCi2ITCb2wy1jRnAMgqKK', 'user');
+(2, 'Rico', '$2y$10$8TOTMnkJ7Ho4ROzz9.LVpuaa4TuagEcmFCi2ITCb2wy1jRnAMgqKK', 'user'),
+(4, 'ucup_simanjuntak', '$2y$10$l/qnTt/zN6YUn6hLA4mVveXEeDVOSgQCFgUGYjILs08UBW2sXVr5C', 'user');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `kategori`
+-- Indeks untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `keranjang`
+-- Indeks untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
   ADD PRIMARY KEY (`id`),
@@ -238,14 +257,14 @@ ALTER TABLE `keranjang`
   ADD KEY `fk_user_keranjang` (`user_id`);
 
 --
--- Indexes for table `pembayaran`
+-- Indeks untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `pembayaran_detail`
+-- Indeks untuk tabel `pembayaran_detail`
 --
 ALTER TABLE `pembayaran_detail`
   ADD PRIMARY KEY (`id`),
@@ -253,7 +272,7 @@ ALTER TABLE `pembayaran_detail`
   ADD KEY `produk_id` (`produk_id`);
 
 --
--- Indexes for table `produk`
+-- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id`),
@@ -261,96 +280,96 @@ ALTER TABLE `produk`
   ADD KEY `kategori_produk` (`kategori_id`);
 
 --
--- Indexes for table `profil`
+-- Indeks untuk tabel `profil`
 --
 ALTER TABLE `profil`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `kategori`
+-- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `keranjang`
+-- AUTO_INCREMENT untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `pembayaran`
+-- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `pembayaran_detail`
+-- AUTO_INCREMENT untuk tabel `pembayaran_detail`
 --
 ALTER TABLE `pembayaran_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `produk`
+-- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `profil`
+-- AUTO_INCREMENT untuk tabel `profil`
 --
 ALTER TABLE `profil`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `keranjang`
+-- Ketidakleluasaan untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
   ADD CONSTRAINT `fk_user_keranjang` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `keranjang_produk_fk` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`id`);
 
 --
--- Constraints for table `pembayaran`
+-- Ketidakleluasaan untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `pembayaran_detail`
+-- Ketidakleluasaan untuk tabel `pembayaran_detail`
 --
 ALTER TABLE `pembayaran_detail`
   ADD CONSTRAINT `pembayaran_detail_ibfk_1` FOREIGN KEY (`pembayaran_id`) REFERENCES `pembayaran` (`id`),
   ADD CONSTRAINT `pembayaran_detail_ibfk_2` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`id`);
 
 --
--- Constraints for table `produk`
+-- Ketidakleluasaan untuk tabel `produk`
 --
 ALTER TABLE `produk`
   ADD CONSTRAINT `kategori_produk` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`);
 
 --
--- Constraints for table `profil`
+-- Ketidakleluasaan untuk tabel `profil`
 --
 ALTER TABLE `profil`
   ADD CONSTRAINT `profil_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
